@@ -20,7 +20,7 @@ func acceptConns(ln net.Listener, conns chan net.Conn) {
 	}
 }
 
-// Read messages constantly from client and store in array when recieved
+// Read messages constantly from client and store in array when received
 func handleClient(client net.Conn, clientid int, msgs chan Message) {
 	reader := bufio.NewReader(client)
 	for {
@@ -37,13 +37,14 @@ func main() {
 	// Listener for that port
 	ln, _ := net.Listen("tcp", *portPtr)
 
-	//Create a channells for connections and messages
+	//Create a channels for connections and messages
 	conns := make(chan net.Conn)
 	msgs := make(chan Message)
 
 	//Create a mapping of IDs to connections
 	clients := make(map[int]net.Conn)
 	id := 0
+
 	//Start accepting connections
 	go acceptConns(ln, conns)
 	for {
